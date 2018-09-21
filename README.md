@@ -14,8 +14,8 @@ This is an extraction of a debugging tool that I have copy/pasted into many proj
 | version                 |  [![Version](https://img.shields.io/gem/v/require_bench.svg)](https://rubygems.org/gems/require_bench) |
 | dependencies            |  [![Depfu](https://badges.depfu.com/badges/272ce0df3bc6df5cbea9354e2c3b65af/count.svg)](https://depfu.com/github/pboling/require_bench?project_id=5614) |
 | continuous integration  |  [![Build Status](https://travis-ci.org/pboling/require_bench.svg?branch=master)](https://travis-ci.org/pboling/require_bench) |
-| test coverage           |  [![Test Coverage](https://api.codeclimate.com/v1/badges/fe504d4ab2fb77cecf7d/test_coverage)](https://codeclimate.com/github/pboling/require_bench/test_coverage) |
-| maintainability         |  [![Maintainability](https://api.codeclimate.com/v1/badges/fe504d4ab2fb77cecf7d/maintainability)](https://codeclimate.com/github/pboling/require_bench/maintainability) |
+| test coverage           |  [![Test Coverage](https://api.codeclimate.com/v1/badges/18523205c207a2b53045/test_coverage)](https://codeclimate.com/github/pboling/require_bench/test_coverage) |
+| maintainability         |  [![Maintainability](https://api.codeclimate.com/v1/badges/18523205c207a2b53045/maintainability)](https://codeclimate.com/github/pboling/require_bench/maintainability) |
 | code triage             |  [![Open Source Helpers](https://www.codetriage.com/pboling/require_bench/badges/users.svg)](https://www.codetriage.com/pboling/require_bench) |
 | homepage                |  [on Github.com][homepage], [on Railsbling.com][blogpage] |
 | documentation           |  [on RDoc.info][documentation] |
