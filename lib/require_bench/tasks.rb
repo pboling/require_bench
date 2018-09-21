@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # NOTE: Gem is only active if REQUIRE_BENCH=true is set in shell
 
 # require 'require_bench/tasks'
@@ -20,12 +22,12 @@ namespace :require_bench do
       puts '=========='
       printf("%10f %s\n", tot, 'TOTAL')
     else
-      puts %[
+      puts %(
 require_bench did not track any requires, because it was required too late.
 Require in Rakefile, as follows
   require 'bundler/setup'
   require 'require_bench/tasks'
-]
+)
     end
   end
 end

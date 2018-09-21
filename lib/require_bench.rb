@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 # STD Libs
 require 'benchmark'
 
 # This Gem
-require "require_bench/version"
+require 'require_bench/version'
 
 module RequireBench
   TIMINGS = Hash.new { |h, k| h[k] = 0.0 }
@@ -34,9 +36,9 @@ if ENV['REQUIRE_BENCH'] == 'true'
                    when Regexp then
                      skips
                    when Array then
-                     Regexp.new(skips.map{ |x| Regexp.escape(x) }.join('|'))
+                     Regexp.new(skips.map { |x| Regexp.escape(x) }.join('|'))
                    when String then
-                     Regexp.new(skips.split(',').map{ |x| Regexp.escape(x) }.join('|'))
+                     Regexp.new(skips.split(',').map { |x| Regexp.escape(x) }.join('|'))
                    end
     puts "[RequireBench] Setting REQUIRE_BENCH_SKIP_PATTERN to #{skip_pattern}"
     ENV['REQUIRE_BENCH_SKIP_PATTERN'] = skip_pattern
