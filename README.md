@@ -6,6 +6,8 @@ Knowing the last file that was successfully "required" by Ruby can be helpful in
 
 This is an extraction of a debugging tool that I have copy/pasted into many projects over the years, and it is now time to set it free.
 
+*Warning*: This gem is for debugging problems.  It uses a global **$** variable, which is sad practice.  It uses it as a safety semaphore, so I consider it justified.  If you can think of a better way to implement the safety semaphore, let me know!
+
 | Project                 |  RequireBench |
 |------------------------ | ----------------------- |
 | gem name                |  [require_bench](https://rubygems.org/gems/require_bench) |
