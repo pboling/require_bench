@@ -16,6 +16,8 @@ RSpec.describe RequireBench do
       # set is already loaded!
       expect(require('set')).to eq(false)
       expect(RequireBench::TIMINGS).to have_key('set')
+      expect(RequireBench::TIMINGS['set']).to be_a(Float)
+      expect(RequireBench::TIMINGS['rspec']).to be_a(Float)
     end
   end
 end

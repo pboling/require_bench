@@ -72,7 +72,7 @@ This will ensure it will load before other stuff.
 When running from command line, you will see output as the Rails app boots.
 ```bash
 ∴ REQUIRE_BENCH=true bundle exec rake require_bench:hello
-[RequireBench]  12.179703 /Users/pboling/Documents/code/intricately/cloudsniff/config/application
+[RequireBench]  12.179703 /path/to/my_app/config/application
 [RequireBench]   0.001726 resque/tasks
 [RequireBench]   0.000917 resque/scheduler/tasks
 [RequireBench]   0.000011 rake
@@ -89,11 +89,11 @@ When running from command line, you will see output as the Rails app boots.
 [RequireBench]   0.003305 rake/testtask
 [RequireBench]   0.001886 rubocop/rake_task
 [RequireBench]   0.000012 hubspot-ruby
-[RequireBench]   2.291259 /Users/pboling/Documents/code/intricately/cloudsniff/config/environment.rb
+[RequireBench]   2.291259 /path/to/my_app/config/environment.rb
 
 [RequireBench] Slowest Loads by Library, in order
- 1.  11.914224 /Users/pboling/Documents/code/intricately/cloudsniff/config/application
- 2.   2.153282 /Users/pboling/Documents/code/intricately/cloudsniff/config/environment.rb
+ 1.  11.914224 /path/to/my_app/config/application
+ 2.   2.153282 /path/to/my_app/config/environment.rb
  3.   0.061008 rails
  4.   0.010827 sprockets
  5.   0.003179 rspec
