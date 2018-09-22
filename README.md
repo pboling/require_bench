@@ -14,7 +14,7 @@ This is an extraction of a debugging tool that I have copy/pasted into many proj
 | license                 |  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT) |
 | download rank           |  [![Downloads Today](https://img.shields.io/gem/rd/require_bench.svg)](https://github.com/pboling/require_bench) |
 | version                 |  [![Version](https://img.shields.io/gem/v/require_bench.svg)](https://rubygems.org/gems/require_bench) |
-| dependencies            |  [![Depfu](https://badges.depfu.com/badges/272ce0df3bc6df5cbea9354e2c3b65af/count.svg)](https://depfu.com/github/pboling/require_bench?project_id=5614) |
+| dependencies            |  [![Depfu](https://badges.depfu.com/badges/247bffc753b0cd49d3c08ce03b5c251c/count.svg)](https://depfu.com/github/pboling/require_bench?project_id=5824) |
 | continuous integration  |  [![Build Status](https://travis-ci.org/pboling/require_bench.svg?branch=master)](https://travis-ci.org/pboling/require_bench) |
 | test coverage           |  [![Test Coverage](https://api.codeclimate.com/v1/badges/18523205c207a2b53045/test_coverage)](https://codeclimate.com/github/pboling/require_bench/test_coverage) |
 | maintainability         |  [![Maintainability](https://api.codeclimate.com/v1/badges/18523205c207a2b53045/maintainability)](https://codeclimate.com/github/pboling/require_bench/maintainability) |
