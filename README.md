@@ -57,7 +57,7 @@ Add an environment variable, however you normally do such things, so that in Rub
 ENV['REQUIRE_BENCH'] == 'true'
 ```
 
-Any value other than `'true'` means RubyBench is still turned off.
+Any value other than `'true'` means RequireBench is still turned off.
 
 ### Handy Rake Task for Rails:
 
