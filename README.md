@@ -8,6 +8,8 @@ This is an extraction of a debugging tool that I have copy/pasted into many proj
 
 *Warning*: This gem is for debugging problems.  It uses a global **$** variable, which is sad practice.  It uses it as a safety semaphore, so I consider it justified.  If you can think of a better way to implement the safety semaphore, let me know!
 
+*Caveat*: This gem has no effects at all unless an particular environment variable is set.  It does nothing at all unless it is 'invoked' by detection of the environment variable.  The *Warning* above is mitigated by the gem not having any of its code activated under normal circumstances.
+
 | Project                 |  RequireBench |
 |------------------------ | ----------------------- |
 | gem name                |  [require_bench](https://rubygems.org/gems/require_bench) |
