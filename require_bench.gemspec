@@ -25,6 +25,8 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.add_development_dependency 'bundler', '~> 2.0'
+  spec.add_development_dependency 'byebug', '~> 11'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.9'
+  spec.add_development_dependency 'silent_stream', '~> 1'
 end

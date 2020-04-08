@@ -16,9 +16,9 @@ module RequireBench
                    when /\|/ then
                      Regexp.union(*skips.split('|'))
                    end
-    puts "[RequireBench] Setting REQUIRE_BENCH_SKIP_PATTERN to #{skip_pattern}"
+    puts "[RequireBench] Using skip pattern: #{skip_pattern}"
   end
-  SKIP_PATTERN = skips
+  SKIP_PATTERN = skip_pattern
 
   if ENV['REQUIRE_BENCH'] == 'true'
     def require_with_timing(file)
@@ -46,16 +46,16 @@ if ENV['REQUIRE_BENCH'] == 'true'
     alias require_without_timing require
 
     def require(file)
-      file = file.to_s
+      file_path = file.to_s
 
       # Global $ variable, which is always truthy while inside the hack, is to
       #   prevent a scenario that might result in infinite recursion.
-      return require_without_timing(file) if $require_bench_semaphore
-      if RequireBench::SKIP_PATTERN && file =~ RequireBench::SKIP_PATTERN
-        return require_without_timing(file)
+      return require_without_timing(file_path) if $require_bench_semaphore
+      if RequireBench::SKIP_PATTERN && file_path =~ RequireBench::SKIP_PATTERN
+        return require_without_timing(file_path)
       end
 
-      RequireBench.require_with_timing(file)
+      RequireBench.require_with_timing(file_path)
     end
   end
 end
