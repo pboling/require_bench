@@ -116,23 +116,18 @@ When running from command line, you will see output as the Rails app boots.
 
 If the output is too noisy from deep libraries you can add a regex to skip benchmarking of files that match.
 
-If the value is set in the shell, it should be a string.  RequireBench will split the string by comma, Regexp escape each value, and join together with pipe (`|`) to form the regex pattern.
-
 ```bash
 export REQUIRE_BENCH_SKIP_PATTERN=activesupport,rspec
 ```
 
-If the `ENV['REQUIRE_BENCH_SKIP_PATTERN']` value is set in Ruby, it can be one of:
-  * a string, to be split by comma, each Regexp escaped, then joined by pipe (`|`)
-  * an array of strings, each to be Regexp escaped, then joined by pipe (`|`)
-  * a Regexp object, which will be used as is.
+`ENV['REQUIRE_BENCH_SKIP_PATTERN']` must be one of:
+  * a string, to be split by comma (`,`), each Regexp escaped, then joined by pipe (`|`) with `Regexp.union`
+  * a string, to be split by pipe (`|`), each Regexp escaped, then joined by pipe (`|`) with `Regexp.union`
 
 ```ruby
 ENV['REQUIRE_BENCH_SKIP_PATTERN'] = 'activesupport,rspec'
 # or
-ENV['REQUIRE_BENCH_SKIP_PATTERN'] = [ 'activesupport', 'rspec' ]
-# or
-ENV['REQUIRE_BENCH_SKIP_PATTERN'] = Regexp.new('activesupport|rspec')
+ENV['REQUIRE_BENCH_SKIP_PATTERN'] = 'activesupport|rspec'
 ```
 
 Any file being required that matches the pattern will use the standard, rather than the benchmarked, require.

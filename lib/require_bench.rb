@@ -8,6 +8,17 @@ require 'require_bench/version'
 
 module RequireBench
   TIMINGS = Hash.new { |h, k| h[k] = 0.0 }
+  skips = ENV['REQUIRE_BENCH_SKIP_PATTERN']
+  if skips
+    skip_pattern = case skips
+                   when /,/ then
+                     Regexp.union(*skips.split(','))
+                   when /\|/ then
+                     Regexp.union(*skips.split('|'))
+                   end
+    puts "[RequireBench] Setting REQUIRE_BENCH_SKIP_PATTERN to #{skip_pattern}"
+  end
+  SKIP_PATTERN = skips
 
   if ENV['REQUIRE_BENCH'] == 'true'
     def require_with_timing(file)
@@ -30,19 +41,6 @@ module RequireBench
 end
 
 if ENV['REQUIRE_BENCH'] == 'true'
-  skips = ENV['REQUIRE_BENCH_SKIP_PATTERN']
-  if skips
-    skip_pattern = case skips
-                   when Regexp then
-                     skips
-                   when Array then
-                     Regexp.new(skips.map { |x| Regexp.escape(x) }.join('|'))
-                   when String then
-                     Regexp.new(skips.split(',').map { |x| Regexp.escape(x) }.join('|'))
-                   end
-    puts "[RequireBench] Setting REQUIRE_BENCH_SKIP_PATTERN to #{skip_pattern}"
-    ENV['REQUIRE_BENCH_SKIP_PATTERN'] = skip_pattern
-  end
   # A Kernel hack that adds require timing to find require problems in app.
   module Kernel
     alias require_without_timing require
@@ -53,7 +51,9 @@ if ENV['REQUIRE_BENCH'] == 'true'
       # Global $ variable, which is always truthy while inside the hack, is to
       #   prevent a scenario that might result in infinite recursion.
       return require_without_timing(file) if $require_bench_semaphore
-      return require_without_timing(file) if ENV['REQUIRE_BENCH_SKIP_PATTERN'] && file =~ ENV['REQUIRE_BENCH_SKIP_PATTERN']
+      if RequireBench::SKIP_PATTERN && file =~ RequireBench::SKIP_PATTERN
+        return require_without_timing(file)
+      end
 
       RequireBench.require_with_timing(file)
     end
