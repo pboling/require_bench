@@ -121,8 +121,8 @@ export REQUIRE_BENCH_SKIP_PATTERN=activesupport,rspec
 ```
 
 `ENV['REQUIRE_BENCH_SKIP_PATTERN']` must be one of:
-  * a string, to be split by comma (`,`), each Regexp escaped, then joined by pipe (`|`) with `Regexp.union`
-  * a string, to be split by pipe (`|`), each Regexp escaped, then joined by pipe (`|`) with `Regexp.union`
+  * a string, to be split by comma (`,`), then joined by pipe (`|`) with `Regexp.union`
+  * a string, to be split by pipe (`|`), then joined by pipe (`|`) with `Regexp.union`
 
 ```ruby
 ENV['REQUIRE_BENCH_SKIP_PATTERN'] = 'activesupport,rspec'
