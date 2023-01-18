@@ -10,20 +10,20 @@ This is an extraction of a debugging tool that I have copy/pasted into many proj
 
 *Caveat*: This gem has no effects unless a particular environment variable is set.  It does nothing at all unless it is 'invoked' by detection of the environment variable (`ENV['REQUIRE_BENCH'] == 'true'`).  The *Warning* above is mitigated by the gem not having any of its code activated under normal circumstances.
 
-| Project                 |  RequireBench |
-|------------------------ | ----------------------- |
-| gem name                |  [require_bench](https://rubygems.org/gems/require_bench) |
-| license                 |  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT) |
-| download rank           |  [![Downloads Today](https://img.shields.io/gem/rd/require_bench.svg)](https://github.com/pboling/require_bench) |
-| version                 |  [![Version](https://img.shields.io/gem/v/require_bench.svg)](https://rubygems.org/gems/require_bench) |
-| dependencies            |  [![Depfu](https://badges.depfu.com/badges/247bffc753b0cd49d3c08ce03b5c251c/count.svg)](https://depfu.com/github/pboling/require_bench?project_id=5824) |
-| continuous integration  |  [![Build Status](https://travis-ci.org/pboling/require_bench.svg?branch=master)](https://travis-ci.org/pboling/require_bench) |
-| test coverage           |  [![Test Coverage](https://api.codeclimate.com/v1/badges/18523205c207a2b53045/test_coverage)](https://codeclimate.com/github/pboling/require_bench/test_coverage) |
-| maintainability         |  [![Maintainability](https://api.codeclimate.com/v1/badges/18523205c207a2b53045/maintainability)](https://codeclimate.com/github/pboling/require_bench/maintainability) |
-| code triage             |  [![Open Source Helpers](https://www.codetriage.com/pboling/require_bench/badges/users.svg)](https://www.codetriage.com/pboling/require_bench) |
-| homepage                |  [on Github.com][homepage], [on Railsbling.com][blogpage] |
-| documentation           |  [on RDoc.info][documentation] |
-| Spread ~♡ⓛⓞⓥⓔ♡~      |  [🌏](https://about.me/peter.boling), [👼](https://angel.co/peter-boling), [:shipit:](http://coderwall.com/pboling), [![Tweet Peter](https://img.shields.io/twitter/follow/galtzo.svg?style=social&label=Follow)](http://twitter.com/galtzo), [🌹](https://nationalprogressiveparty.org) |
+| Project                | RequireBench                                                                                                                                                                                                                                         |
+|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| gem name               | [require_bench](https://rubygems.org/gems/require_bench)                                                                                                                                                                                             |
+| license                | [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)                                                                                                                                           |
+| download rank          | [![Downloads Today](https://img.shields.io/gem/rd/require_bench.svg)](https://github.com/pboling/require_bench)                                                                                                                                      |
+| version                | [![Version](https://img.shields.io/gem/v/require_bench.svg)](https://rubygems.org/gems/require_bench)                                                                                                                                                |
+| dependencies           | [![Depfu](https://badges.depfu.com/badges/247bffc753b0cd49d3c08ce03b5c251c/count.svg)](https://depfu.com/github/pboling/require_bench?project_id=5824)                                                                                               |
+| continuous integration | [![Build Status](https://travis-ci.org/pboling/require_bench.svg?branch=master)](https://travis-ci.org/pboling/require_bench)                                                                                                                        |
+| test coverage          | [![Test Coverage](https://api.codeclimate.com/v1/badges/18523205c207a2b53045/test_coverage)](https://codeclimate.com/github/pboling/require_bench/test_coverage)                                                                                     |
+| maintainability        | [![Maintainability](https://api.codeclimate.com/v1/badges/18523205c207a2b53045/maintainability)](https://codeclimate.com/github/pboling/require_bench/maintainability)                                                                               |
+| code triage            | [![Open Source Helpers](https://www.codetriage.com/pboling/require_bench/badges/users.svg)](https://www.codetriage.com/pboling/require_bench)                                                                                                        |
+| homepage               | [on Github.com][homepage], [on Railsbling.com][blogpage]                                                                                                                                                                                             |
+| documentation          | [on RDoc.info][documentation]                                                                                                                                                                                                                        |
+| Spread ~♡ⓛⓞⓥⓔ♡~        | [🌏](https://about.me/peter.boling), [👼](https://angel.co/peter-boling), [:shipit:](https://coderwall.com/Peter%20Boling), [![Tweet Peter](https://img.shields.io/twitter/follow/galtzo.svg?style=social&label=Follow)](https://twitter.com/galtzo) |
 
 ## Installation
 
@@ -61,20 +61,31 @@ ENV['REQUIRE_BENCH'] == 'true'
 
 Any value other than `'true'` means RequireBench is still turned off.
 
-### Handy Rake Task for Rails:
+### Handy Rake Task
 
-Require in Rakefile, as follows:
+#### For a Gem Library
+
+Require in Rakefile:
 
 ```ruby
   require 'bundler/setup'
   require 'require_bench/tasks' # Near the top, just below require 'bundler/setup'!
 ```
 
-This will ensure it will load before other stuff.
+#### For Rails
+
+Require in Rakefile:
+
+```ruby
+  require_relative 'config/application'
+  require 'require_bench/tasks' # Near the top, just below require_relative 'config/application'!
+```
+
+#### Output
 
 When running from command line, you will see output as the Rails app boots.
 ```bash
-∴ REQUIRE_BENCH=true bundle exec rake require_bench:hello
+$ REQUIRE_BENCH=true bundle exec rake require_bench:hello
 [RequireBench]  12.179703 /path/to/my_app/config/application
 [RequireBench]   0.001726 resque/tasks
 [RequireBench]   0.000917 resque/scheduler/tasks

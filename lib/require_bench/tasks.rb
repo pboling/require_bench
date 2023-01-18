@@ -25,7 +25,7 @@ namespace :require_bench do
       puts %(
 require_bench did not track any requires, because it was required too late.
 Require in Rakefile, as follows
-  require 'bundler/setup'
+  require 'bundler/setup' # or for Rails - require_relative 'config/application'
   require 'require_bench/tasks'
 )
     end
