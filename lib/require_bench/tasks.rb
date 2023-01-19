@@ -23,10 +23,15 @@ namespace :require_bench do
       printf("%10f %s\n", tot, 'TOTAL')
     else
       puts %(
-require_bench did not track any requires, because it was required too late.
+require_bench did not track any requires, because it was required too late, of the configuration excluded everything.
 Require in Rakefile, as follows
   require 'bundler/setup' # or for Rails - require_relative 'config/application'
   require 'require_bench/tasks'
+Check ENV variable values for:
+    REQUIRE_BENCH_SKIP_PATTERN
+    REQUIRE_BENCH_INCLUDE_PATTERN
+    REQUIRE_BENCH_NO_GROUP_PATTERN
+Then run rake require_bench:hello again!
 )
     end
   end
