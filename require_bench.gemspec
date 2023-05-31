@@ -33,6 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.9'
   spec.add_development_dependency 'rspec-block_is_expected', '~> 1.0'
   spec.add_development_dependency 'rspec-stubbed_env', '~> 1.0'
-  spec.add_development_dependency 'rubocop-lts', '~> 2.0'
+  spec.add_development_dependency 'rubocop-lts', '~> 24.0'
   spec.add_development_dependency 'silent_stream', '~> 1.0'
 end
