@@ -25,14 +25,14 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.license       = 'MIT'
 
-  spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'byebug', '~> 11'
   spec.add_development_dependency 'colorize', '~> 1.1'
   spec.add_development_dependency 'lucky_case', '~> 1.1'
   spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec', '~> 3.9'
+  spec.add_development_dependency 'rspec', '~> 3.12'
   spec.add_development_dependency 'rspec-block_is_expected', '~> 1.0'
-  spec.add_development_dependency 'rspec-stubbed_env', '~> 1.0'
-  spec.add_development_dependency 'rubocop-lts', '~> 2.0'
-  spec.add_development_dependency 'silent_stream', '~> 1.0'
+  spec.add_development_dependency 'rspec-stubbed_env', '~> 1.0', '>= 1.0.1'
+  spec.add_development_dependency 'rubocop-lts', '~> 2.1', '>= 2.1.1'
+  spec.add_development_dependency 'rubocop-packaging', '~> 0.5', '>= 0.5.2'
+  spec.add_development_dependency 'silent_stream', '~> 1.0', '>= 1.0.3'
 end
