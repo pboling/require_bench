@@ -39,6 +39,12 @@ module RequireBench
       require 'require_bench/printer'
     end
     PRINTER = Printer.new
+
+    if rescued_classes.any?
+      rescued_classes.map! do |klass|
+        Kernel.const_get(klass)
+      end
+    end
     if skips && !skips.empty?
       skip_pattern = case skips
                      when /,/
