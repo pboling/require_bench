@@ -4,7 +4,6 @@ class Printer
   # Log statement when a file starts loading
   def out_start(file, type)
     printf "🚥 [RequireBench-#{type}] 📖 %s 🚥\n", file
-    rotate!
   end
 
   # Log statement when a file completed loading
