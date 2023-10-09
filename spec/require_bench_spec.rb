@@ -37,7 +37,7 @@ RSpec.describe RequireBench do
   let(:require_path) { "support/my_library/#{file_path}"}
   let(:req) { require(require_path) }
   let(:quiet_req) { quietly { require(require_path) } }
-  let(:log_match) { /\[RequireBench\]\s+\d\.\d+ #{Regexp.escape(require_path)}/i }
+  let(:log_match) { /🚥\s\[RequireBench-r\]\s☑️\s+\d\.\d+ #{Regexp.escape(require_path)}\s🚥\n/i }
 
   before do
     create_lib_file(file_name, file_dir, my_patch)

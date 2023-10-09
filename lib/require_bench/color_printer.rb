@@ -14,7 +14,20 @@ class Printer
     @colors = ColorizedString.colors.dup.reject {|x| x.match?(/black|white/) }
   end
 
-  def p(seconds, file)
-    printf "🚥 #{ColorizedString['[RequireBench]'].colorize(first)} %10f %s 🚥\n", seconds, file
+  # Log statement when a file starts loading
+  def s(file, type)
+    printf "🚥 #{ColorizedString["[RequireBench-#{type}]"].colorize(first)} 📖 %s 🚥\n", file
+    rotate!
+  end
+
+  # Log statement when a file completed loading
+  def p(seconds, file, type)
+    printf "🚥 #{ColorizedString["[RequireBench-#{type}]"].colorize(first)} ☑️ %10f %s 🚥\n", seconds, file
+    rotate!
+  end
+
+  # Log statement when a file raises an error while loading
+  def e(error, file, type)
+    printf "🚥 #{ColorizedString["[RequireBench-#{type}]"].colorize(first)} ❌ '#{error.class}: #{error.message}' loading %s 🚥\n#{error.backtrace.join("\n")}", file
   end
 end

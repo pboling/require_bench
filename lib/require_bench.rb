@@ -1,20 +1,34 @@
 # frozen_string_literal: true
 
+REQUIRE_BENCH_ENABLED = ENV.fetch('REQUIRE_BENCH').casecmp?('true')
+
 # STD Libs
-require 'benchmark'
+if REQUIRE_BENCH_ENABLED
+  require 'benchmark'
+  require 'timeout'
+end
 
 # This Gem
 require 'require_bench/version'
 
+
+# Namespace for this gem
 module RequireBench
-  if ENV['REQUIRE_BENCH'] == 'true'
+  if REQUIRE_BENCH_ENABLED
     TIMINGS = Hash.new { |h, k| h[k] = 0.0 }
     skips = ENV['REQUIRE_BENCH_SKIP_PATTERN']
+    log_start = ENV['REQUIRE_BENCH_LOG_START']
+    timeout = ENV.fetch('REQUIRE_BENCH_TIMEOUT', '0').to_i # zero == no timeout, any other number == seconds to wait.
+    tracked_methods = ENV.fetch('REQUIRE_BENCH_TRACKED_METHODS', 'require,load').split(',')
+    raise ArgumentError, "ENV['REQUIRE_BENCH_TRACKED_METHODS'] is invalid." unless (tracked_methods - %w[load require]).empty?
+
     includes = ENV['REQUIRE_BENCH_INCLUDE_PATTERN']
     no_group = ENV['REQUIRE_BENCH_NO_GROUP_PATTERN']
-    group_precedence = ENV['REQUIRE_BENCH_GROUP_PRECEDENCE'] || "path,basename"
+    group_precedence = ENV.fetch('REQUIRE_BENCH_GROUP_PRECEDENCE', 'path,basename')
     precedence = group_precedence.split(',')
-    raise ArgumentError, "ENV['REQUIRE_BENCH_GROUP_PRECEDENCE'] is invalid." unless precedence.sort == %w(basename path)
+    raise ArgumentError, "ENV['REQUIRE_BENCH_GROUP_PRECEDENCE'] is invalid." unless precedence.sort == %w[basename path]
+
+    rescued_classes = ENV.fetch('REQUIRE_BENCH_RESCUED_CLASSES', '').split(',')
 
     preferred_grouping = precedence.first
     prefer_not_path = preferred_grouping != 'path' # path correlates to default behavior of regexp matching
@@ -60,20 +74,35 @@ module RequireBench
                      end
       puts "[RequireBench] Using no group pattern: #{no_group_pattern}"
     end
-    SKIP_PATTERN = skip_pattern
     INCLUDE_PATTERN = include_pattern
     INCLUDE_TOKENS = include_tokens
+    LOG_START = log_start
     NO_GROUP_PATTERN = no_group_pattern
     PREFER_NOT_PATH = prefer_not_path
+    RESCUED_CLASSES = rescued_classes
+    SKIP_PATTERN = skip_pattern
+    TIMEOUT = timeout
+    TRACKED_METHODS = tracked_methods
 
-    def require_with_timing(file)
+    def consume_with_timing(type, file)
       $require_bench_semaphore = true
+      short_type = type[0]
       ret = nil
       # Not sure if this is actually a useful abstraction...
       prefix = INCLUDE_TOKENS.detect { |t| File.basename(file).match?(t) } if PREFER_NOT_PATH
 
-      seconds = Benchmark.realtime { ret = Kernel.send(:require_without_timing, file) }
-      PRINTER.p(seconds, file)
+      seconds = Benchmark.realtime do
+        ret = if RequireBench::TIMEOUT.zero?
+                Kernel.send("#{type}_without_timing", file)
+              else
+                # Raise Timeout::Error if more than RequireBench::TIMEOUT seconds are spent in the block
+                # This is a giant hammer, and should probably only be used to figure out where an infinite loop might be hiding.
+                Timeout.timeout(RequireBench::TIMEOUT) {
+                  Kernel.send("#{type}_without_timing", file)
+                }
+              end
+      end
+      PRINTER.p(seconds, file, short_type)
       if prefix.nil? && (NO_GROUP_PATTERN.nil? || !NO_GROUP_PATTERN.match?(file))
         # This results in grouping all files with the same leading path part (e.g. "models", or "lib")
         #   into the same timing bucket.
@@ -93,31 +122,54 @@ module RequireBench
     ensure
       $require_bench_semaphore = nil
     end
-    module_function :require_with_timing
+    module_function :consume_with_timing
   end
 end
 
-if ENV['REQUIRE_BENCH'] == 'true'
+if REQUIRE_BENCH_ENABLED
   # A Kernel hack that adds require timing to find require problems in app.
   module Kernel
     alias require_without_timing require
+    alias load_without_timing load
 
     def require(file)
+      _require_bench_consume_file('require', file)
+    end
+
+    def load(file)
+      _require_bench_consume_file('load', file)
+    end
+
+    def _require_bench_consume_file(type, file)
       file_path = file.to_s
       # byebug if file_path.match?(/no_group_fox/)
 
       # Global $ variable, which is always truthy while inside the hack, is to
       #   prevent a scenario that might result in infinite recursion.
-      return require_without_timing(file_path) if $require_bench_semaphore
+      return send("#{type}_without_timing", file_path) if $require_bench_semaphore
 
+      short_type = type[0]
       measure = RequireBench::INCLUDE_PATTERN && file_path.match?(RequireBench::INCLUDE_PATTERN)
       skippy = RequireBench::SKIP_PATTERN && file_path.match?(RequireBench::SKIP_PATTERN)
-      if !measure && skippy
-        require_without_timing(file_path)
-      elsif RequireBench::INCLUDE_PATTERN.nil? || measure
-        RequireBench.require_with_timing(file_path)
+      PRINTER.p(file, short_type) if RequireBench::LOG_START
+      if RequireBench::RESCUED_CLASSES.any?
+        begin
+          _require_bench_file(type, measure, skippy, file_path)
+        rescue *RequireBench::RESCUED_CLASSES => error
+          PRINTER.e(error, file, short_type)
+        end
       else
-        require_without_timing(file_path)
+        _require_bench_file(type, measure, skippy, file_path)
+      end
+    end
+
+    def _require_bench_file(type, measure, skippy, file_path)
+      if !measure && skippy
+        send("#{type}_without_timing", file_path)
+      elsif RequireBench::INCLUDE_PATTERN.nil? || measure
+        RequireBench.send("consume_with_timing", type, file_path)
+      else
+        send("#{type}_without_timing", file_path)
       end
     end
   end
