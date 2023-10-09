@@ -108,7 +108,7 @@ module RequireBench
                 end
               end
       end
-      PRINTER.p(seconds, file, short_type)
+      PRINTER.out_consume(seconds, file, short_type)
       if prefix.nil? && (NO_GROUP_PATTERN.nil? || !NO_GROUP_PATTERN.match?(file))
         # This results in grouping all files with the same leading path part (e.g. "models", or "lib")
         #   into the same timing bucket.
@@ -157,12 +157,12 @@ if REQUIRE_BENCH_ENABLED
       short_type = type[0]
       measure = RequireBench::INCLUDE_PATTERN && file_path.match?(RequireBench::INCLUDE_PATTERN)
       skippy = RequireBench::SKIP_PATTERN && file_path.match?(RequireBench::SKIP_PATTERN)
-      RequireBench::PRINTER.p(file, short_type) if RequireBench::LOG_START
+      RequireBench::PRINTER.out_start(file, short_type) if RequireBench::LOG_START
       if RequireBench::RESCUED_CLASSES.any?
         begin
           _require_bench_file(type, measure, skippy, file_path)
         rescue *RequireBench::RESCUED_CLASSES => e
-          RequireBench::PRINTER.e(e, file, short_type)
+          RequireBench::PRINTER.out_error(e, file, short_type)
         end
       else
         _require_bench_file(type, measure, skippy, file_path)
