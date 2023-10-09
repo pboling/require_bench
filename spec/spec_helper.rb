@@ -8,7 +8,8 @@ require 'lucky_case'
 # The gem does nothing unless this variable is set.
 ENV['REQUIRE_BENCH'] = 'true'
 ENV['REQUIRE_BENCH_SKIP_PATTERN'] = 'skipped_bird|skipped_nested_bird|skipped|nested/ignored'
-ENV['REQUIRE_BENCH_INCLUDE_PATTERN'] = 'ostruct|logged_tiger|logged_skipped_lion|logged_duck|no_group_fox|no_group_cat|grouped|nested/collected'
+ENV['REQUIRE_BENCH_INCLUDE_PATTERN'] =
+  'ostruct|logged_tiger|logged_skipped_lion|logged_duck|no_group_fox|no_group_cat|grouped|nested/collected'
 ENV['REQUIRE_BENCH_NO_GROUP_PATTERN'] = 'no_group_fish|no_group_fly|separate|nested/disparate'
 # default is "path,basename", which is how Regexp matching works naturally,
 #   since the path precedes the basename in any filename string.

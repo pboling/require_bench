@@ -11,7 +11,6 @@ end
 # This Gem
 require 'require_bench/version'
 
-
 # Namespace for this gem
 module RequireBench
   if REQUIRE_BENCH_ENABLED
@@ -20,7 +19,8 @@ module RequireBench
     log_start = ENV['REQUIRE_BENCH_LOG_START']
     timeout = ENV.fetch('REQUIRE_BENCH_TIMEOUT', '0').to_i # zero == no timeout, any other number == seconds to wait.
     tracked_methods = ENV.fetch('REQUIRE_BENCH_TRACKED_METHODS', 'require,load').split(',')
-    raise ArgumentError, "ENV['REQUIRE_BENCH_TRACKED_METHODS'] is invalid." unless (tracked_methods - %w[load require]).empty?
+    raise ArgumentError, "ENV['REQUIRE_BENCH_TRACKED_METHODS'] is invalid." unless (tracked_methods - %w[load
+                                                                                                         require]).empty?
 
     includes = ENV['REQUIRE_BENCH_INCLUDE_PATTERN']
     no_group = ENV['REQUIRE_BENCH_NO_GROUP_PATTERN']
@@ -34,16 +34,16 @@ module RequireBench
     prefer_not_path = preferred_grouping != 'path' # path correlates to default behavior of regexp matching
 
     if defined?(ColorizedString)
-      require "require_bench/color_printer"
+      require 'require_bench/color_printer'
     else
-      require "require_bench/printer"
+      require 'require_bench/printer'
     end
     PRINTER = Printer.new
     if skips && !skips.empty?
       skip_pattern = case skips
-                     when /,/ then
+                     when /,/
                        Regexp.union(*skips.split(','))
-                     when /\|/ then
+                     when /\|/
                        Regexp.union(*skips.split('|'))
                      else
                        Regexp.new(skips)
@@ -52,26 +52,26 @@ module RequireBench
     end
     if includes && !includes.empty?
       include_tokens = case includes
-                       when /,/ then
+                       when /,/
                          includes.split(',')
-                       when /\|/ then
+                       when /\|/
                          includes.split('|')
                        else
                          Array(includes)
                        end
       include_pattern = Regexp.union(*include_tokens)
-      include_tokens.reject! {|a| a.match?(/\//) } if prefer_not_path
+      include_tokens.reject! { |a| a.match?(%r{/}) } if prefer_not_path
       puts "[RequireBench] Using include pattern: #{include_pattern}"
     end
     if no_group && !no_group.empty?
       no_group_pattern = case no_group
-                     when /,/ then
-                       Regexp.union(*no_group.split(','))
-                     when /\|/ then
-                       Regexp.union(*no_group.split('|'))
-                     else
-                       Regexp.new(no_group)
-                     end
+                         when /,/
+                           Regexp.union(*no_group.split(','))
+                         when /\|/
+                           Regexp.union(*no_group.split('|'))
+                         else
+                           Regexp.new(no_group)
+                         end
       puts "[RequireBench] Using no group pattern: #{no_group_pattern}"
     end
     INCLUDE_PATTERN = include_pattern
@@ -97,9 +97,9 @@ module RequireBench
               else
                 # Raise Timeout::Error if more than RequireBench::TIMEOUT seconds are spent in the block
                 # This is a giant hammer, and should probably only be used to figure out where an infinite loop might be hiding.
-                Timeout.timeout(RequireBench::TIMEOUT) {
+                Timeout.timeout(RequireBench::TIMEOUT) do
                   Kernel.send("#{type}_without_timing", file)
-                }
+                end
               end
       end
       PRINTER.p(seconds, file, short_type)
@@ -155,8 +155,8 @@ if REQUIRE_BENCH_ENABLED
       if RequireBench::RESCUED_CLASSES.any?
         begin
           _require_bench_file(type, measure, skippy, file_path)
-        rescue *RequireBench::RESCUED_CLASSES => error
-          PRINTER.e(error, file, short_type)
+        rescue *RequireBench::RESCUED_CLASSES => e
+          PRINTER.e(e, file, short_type)
         end
       else
         _require_bench_file(type, measure, skippy, file_path)
@@ -167,7 +167,7 @@ if REQUIRE_BENCH_ENABLED
       if !measure && skippy
         send("#{type}_without_timing", file_path)
       elsif RequireBench::INCLUDE_PATTERN.nil? || measure
-        RequireBench.send("consume_with_timing", type, file_path)
+        RequireBench.send('consume_with_timing', type, file_path)
       else
         send("#{type}_without_timing", file_path)
       end

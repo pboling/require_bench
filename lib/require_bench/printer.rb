@@ -1,5 +1,4 @@
 class Printer
-
   # Log statement when a file starts loading
   def s(file, type)
     printf "🚥 [RequireBench-#{type}] 📖 %s 🚥\n", file
@@ -13,6 +12,7 @@ class Printer
 
   # Log statement when a file raises an error while loading
   def e(error, file, type)
-    printf "🚥 [RequireBench-#{type}] ❌ '#{error.class}: #{error.message}' loading %s 🚥\n#{error.backtrace.join("\n")}", file
+    printf "🚥 [RequireBench-#{type}] ❌ '#{error.class}: #{error.message}' loading %s 🚥\n#{error.backtrace.join("\n")}",
+           file
   end
 end

@@ -13,7 +13,9 @@ RSpec.describe RequireBench do
   let(:included_skipped_library_by_name) { ['LoggedSkippedLion', 'skipped/', '9', nil] }
   let(:no_group_library_by_name) { ['NoGroupFish', 'grouped/', '10', 'support/my_library/grouped/no_group_fish'] }
   let(:no_group_library_by_dir) { ['NoGroupFox', 'separate/', '11', nil] }
-  let(:no_group_nested_library_by_name) { ['NoGroupFly', 'nested/collected/', '12', 'support/my_library/nested/collected/no_group_fly'] }
+  let(:no_group_nested_library_by_name) do
+    ['NoGroupFly', 'nested/collected/', '12', 'support/my_library/nested/collected/no_group_fly']
+  end
   let(:no_group_nested_library_by_dir) { ['NoGroupCat', 'nested/disparate/', '13', nil] }
   let(:my_nested_module) { library[0] }
   let(:my_module) { LuckyCase.constantize("MyLibrary::#{my_nested_module}") }
@@ -34,7 +36,7 @@ RSpec.describe RequireBench do
   let(:file_name) { LuckyCase.snake_case(my_nested_module) }
   let(:file_dir) { library[1] }
   let(:file_path) { "#{file_dir}#{file_name}" }
-  let(:require_path) { "support/my_library/#{file_path}"}
+  let(:require_path) { "support/my_library/#{file_path}" }
   let(:req) { require(require_path) }
   let(:quiet_req) { quietly { require(require_path) } }
   let(:log_match) { /🚥\s\[RequireBench-r\]\s☑️\s+\d\.\d+ #{Regexp.escape(require_path)}\s🚥\n/i }
@@ -47,7 +49,7 @@ RSpec.describe RequireBench do
   end
 
   context 'when skipped' do
-    shared_examples_for "skipped" do
+    shared_examples_for 'skipped' do
       it 'does not break require' do
         quiet_req
         expect(my_version).to eq(library_version)
@@ -76,31 +78,31 @@ RSpec.describe RequireBench do
 
       it 'has only string TIMINGS keys' do
         quietly { require std_library }
-        expect(RequireBench::TIMINGS.keys.select {|x| !x.is_a?(String) }).to eq([])
+        expect(RequireBench::TIMINGS.keys.select { |x| !x.is_a?(String) }).to eq([])
       end
     end
 
-    context "when by name" do
-      it_behaves_like "skipped" do
+    context 'when by name' do
+      it_behaves_like 'skipped' do
         let(:library) { skipped_library_by_name }
       end
     end
 
-    context "when by dir" do
-      it_behaves_like "skipped" do
+    context 'when by dir' do
+      it_behaves_like 'skipped' do
         let(:library) { skipped_library_by_dir }
       end
     end
 
-    context "when nested" do
-      context "when by name" do
-        it_behaves_like "skipped" do
+    context 'when nested' do
+      context 'when by name' do
+        it_behaves_like 'skipped' do
           let(:library) { skipped_nested_library_by_name }
         end
       end
 
-      context "when by dir" do
-        it_behaves_like "skipped" do
+      context 'when by dir' do
+        it_behaves_like 'skipped' do
           let(:library) { skipped_nested_library_by_dir }
         end
       end
@@ -108,7 +110,7 @@ RSpec.describe RequireBench do
   end
 
   context 'when included' do
-    shared_examples_for "logged" do
+    shared_examples_for 'logged' do
       it 'does not break require' do
         quiet_req
         expect(my_version).to eq(library_version)
@@ -131,65 +133,65 @@ RSpec.describe RequireBench do
 
       it 'has only string TIMINGS keys' do
         quiet_req
-        expect(RequireBench::TIMINGS.keys.select {|x| !x.is_a?(String) }).to eq([])
+        expect(RequireBench::TIMINGS.keys.select { |x| !x.is_a?(String) }).to eq([])
       end
     end
 
-    context "when by name" do
-      it_behaves_like "logged" do
+    context 'when by name' do
+      it_behaves_like 'logged' do
         let(:library) { included_library_by_name }
       end
     end
 
-    context "when by dir" do
-      it_behaves_like "logged" do
+    context 'when by dir' do
+      it_behaves_like 'logged' do
         let(:library) { included_library_by_dir }
       end
     end
 
-    context "when nested" do
-      context "when by name" do
-        it_behaves_like "logged" do
+    context 'when nested' do
+      context 'when by name' do
+        it_behaves_like 'logged' do
           let(:library) { included_nested_library_by_name }
         end
       end
-      context "when by dir" do
-        it_behaves_like "logged" do
+      context 'when by dir' do
+        it_behaves_like 'logged' do
           let(:library) { included_nested_library_by_dir }
         end
       end
     end
 
-    context "when skipped overridden" do
-      context "when by name" do
-        it_behaves_like "logged" do
+    context 'when skipped overridden' do
+      context 'when by name' do
+        it_behaves_like 'logged' do
           let(:library) { included_skipped_library_by_name }
         end
       end
     end
 
-    context "when not grouped" do
-      context "when by name" do
-        it_behaves_like "logged" do
+    context 'when not grouped' do
+      context 'when by name' do
+        it_behaves_like 'logged' do
           let(:library) { no_group_library_by_name }
         end
       end
 
-      context "when by dir" do
-        it_behaves_like "logged" do
+      context 'when by dir' do
+        it_behaves_like 'logged' do
           let(:library) { no_group_library_by_dir }
         end
       end
 
-      context "when nested" do
-        context "when by name" do
-          it_behaves_like "logged" do
+      context 'when nested' do
+        context 'when by name' do
+          it_behaves_like 'logged' do
             let(:library) { no_group_nested_library_by_name }
           end
         end
 
-        context "when by dir" do
-          it_behaves_like "logged" do
+        context 'when by dir' do
+          it_behaves_like 'logged' do
             let(:library) { no_group_nested_library_by_dir }
           end
         end

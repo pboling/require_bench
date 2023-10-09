@@ -5,6 +5,6 @@ RSpec.describe RequireBench do
   end
 
   it 'has a number' do
-    expect(version).to match(/\A\d+\.\d+\.\d+\z/)
+    expect(version).to match(/\A\d+\.\d+\.\d+-?\w*\z/)
   end
 end

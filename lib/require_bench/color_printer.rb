@@ -1,5 +1,5 @@
 # std libs
-require "forwardable"
+require 'forwardable'
 
 # third party libs
 # You will need to have gem "colorize" installed!
@@ -8,10 +8,11 @@ require "forwardable"
 
 class Printer
   attr_accessor :colors, :color
+
   extend Forwardable
   def_delegators :@colors, :rotate!, :first
   def initialize
-    @colors = ColorizedString.colors.dup.reject {|x| x.match?(/black|white/) }
+    @colors = ColorizedString.colors.dup.reject { |x| x.match?(/black|white/) }
   end
 
   # Log statement when a file starts loading
@@ -28,6 +29,7 @@ class Printer
 
   # Log statement when a file raises an error while loading
   def e(error, file, type)
-    printf "🚥 #{ColorizedString["[RequireBench-#{type}]"].colorize(first)} ❌ '#{error.class}: #{error.message}' loading %s 🚥\n#{error.backtrace.join("\n")}", file
+    printf "🚥 #{ColorizedString["[RequireBench-#{type}]"].colorize(first)} ❌ '#{error.class}: #{error.message}' loading %s 🚥\n#{error.backtrace.join("\n")}",
+           file
   end
 end

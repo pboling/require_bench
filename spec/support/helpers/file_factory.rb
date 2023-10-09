@@ -10,7 +10,7 @@
 # => []
 module FileFactory
   DIR = File.dirname(__FILE__)
-  EXT_PATH = "../my_library"
+  EXT_PATH = '../my_library'
   PATH = File.expand_path(EXT_PATH, DIR)
 
   def create_lib_file(klass_mod, dir = nil, version = '1')
@@ -31,7 +31,11 @@ module FileFactory
 
   def delete_lib_file(klass_mod, dir = nil)
     km = LuckyCase.pascal_case(klass_mod)
-    Object.send(:remove_const, :"MyLibrary::#{km}") rescue NameError
+    begin
+      Object.send(:remove_const, :"MyLibrary::#{km}")
+    rescue StandardError
+      NameError
+    end
     $".delete(file_name)
     file_name = "#{PATH}/#{dir}#{LuckyCase.snake_case(klass_mod)}.rb"
     File.delete(file_name) if File.exist?(file_name)
