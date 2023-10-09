@@ -78,7 +78,7 @@ RSpec.describe RequireBench do
 
       it 'has only string TIMINGS keys' do
         quietly { require std_library }
-        expect(RequireBench::TIMINGS.keys.select { |x| !x.is_a?(String) }).to eq([])
+        expect(RequireBench::TIMINGS.keys.reject { |x| x.is_a?(String) }).to eq([])
       end
     end
 
@@ -133,7 +133,7 @@ RSpec.describe RequireBench do
 
       it 'has only string TIMINGS keys' do
         quiet_req
-        expect(RequireBench::TIMINGS.keys.select { |x| !x.is_a?(String) }).to eq([])
+        expect(RequireBench::TIMINGS.keys.reject { |x| x.is_a?(String) }).to eq([])
       end
     end
 

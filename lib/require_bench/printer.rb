@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Printer
   # Log statement when a file starts loading
   def s(file, type)

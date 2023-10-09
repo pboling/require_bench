@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe RequireBench do
   subject(:version) { described_class::VERSION }
   it 'is not nil' do

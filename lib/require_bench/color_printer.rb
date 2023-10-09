@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # std libs
 require 'forwardable'
 

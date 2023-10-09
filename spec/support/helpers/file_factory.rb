@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # See:
 #   - https://stackoverflow.com/a/58196376/213191
 #   - https://stackoverflow.com/a/19755506/213191
@@ -36,7 +38,7 @@ module FileFactory
     rescue StandardError
       NameError
     end
-    $".delete(file_name)
+    $LOADED_FEATURES.delete(file_name)
     file_name = "#{PATH}/#{dir}#{LuckyCase.snake_case(klass_mod)}.rb"
     File.delete(file_name) if File.exist?(file_name)
   end
