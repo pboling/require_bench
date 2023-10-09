@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    require_bench (1.0.4.pre.alpha.1)
+    require_bench (1.0.4.pre.alpha.2)
 
 GEM
   remote: https://rubygems.org/

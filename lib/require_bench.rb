@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-REQUIRE_BENCH_ENABLED = ENV.fetch('REQUIRE_BENCH').casecmp?('true')
+REQUIRE_BENCH_ENABLED = ENV.fetch('REQUIRE_BENCH', 'false').casecmp?('true')
 
 # STD Libs
 if REQUIRE_BENCH_ENABLED
