@@ -157,12 +157,12 @@ if REQUIRE_BENCH_ENABLED
       short_type = type[0]
       measure = RequireBench::INCLUDE_PATTERN && file_path.match?(RequireBench::INCLUDE_PATTERN)
       skippy = RequireBench::SKIP_PATTERN && file_path.match?(RequireBench::SKIP_PATTERN)
-      PRINTER.p(file, short_type) if RequireBench::LOG_START
+      RequireBench::PRINTER.p(file, short_type) if RequireBench::LOG_START
       if RequireBench::RESCUED_CLASSES.any?
         begin
           _require_bench_file(type, measure, skippy, file_path)
         rescue *RequireBench::RESCUED_CLASSES => e
-          PRINTER.e(e, file, short_type)
+          RequireBench::PRINTER.e(e, file, short_type)
         end
       else
         _require_bench_file(type, measure, skippy, file_path)
