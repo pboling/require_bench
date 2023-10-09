@@ -90,7 +90,7 @@ module RequireBench
     TIMEOUT = timeout
     TRACKED_METHODS = tracked_methods
 
-    def consume_with_timing(type, file)
+    def consume_with_timing(type, file, *args)
       $require_bench_semaphore = true
       short_type = type[0]
       ret = nil
@@ -99,12 +99,12 @@ module RequireBench
 
       seconds = Benchmark.realtime do
         ret = if RequireBench::TIMEOUT.zero?
-                Kernel.send("#{type}_without_timing", file)
+                Kernel.send("#{type}_without_timing", file, *args)
               else
                 # Raise Timeout::Error if more than RequireBench::TIMEOUT seconds are spent in the block
                 # This is a giant hammer, and should probably only be used to figure out where an infinite loop might be hiding.
                 Timeout.timeout(RequireBench::TIMEOUT) do
-                  Kernel.send("#{type}_without_timing", file)
+                  Kernel.send("#{type}_without_timing", file, *args)
                 end
               end
       end
@@ -142,17 +142,17 @@ if REQUIRE_BENCH_ENABLED
       _require_bench_consume_file('require', file)
     end
 
-    def load(file)
-      _require_bench_consume_file('load', file)
+    def load(file,  *args)
+      _require_bench_consume_file('load', file, *args)
     end
 
-    def _require_bench_consume_file(type, file)
+    def _require_bench_consume_file(type, file, *args)
       file_path = file.to_s
       # byebug if file_path.match?(/no_group_fox/)
 
       # Global $ variable, which is always truthy while inside the hack, is to
       #   prevent a scenario that might result in infinite recursion.
-      return send("#{type}_without_timing", file_path) if $require_bench_semaphore
+      return send("#{type}_without_timing", file_path, *args) if $require_bench_semaphore
 
       short_type = type[0]
       measure = RequireBench::INCLUDE_PATTERN && file_path.match?(RequireBench::INCLUDE_PATTERN)
@@ -160,22 +160,22 @@ if REQUIRE_BENCH_ENABLED
       RequireBench::PRINTER.out_start(file, short_type) if RequireBench::LOG_START
       if RequireBench::RESCUED_CLASSES.any?
         begin
-          _require_bench_file(type, measure, skippy, file_path)
+          _require_bench_file(type, measure, skippy, file_path, *args)
         rescue *RequireBench::RESCUED_CLASSES => e
-          RequireBench::PRINTER.out_error(e, file, short_type)
+          RequireBench::PRINTER.out_error(e, file, short_type, *args)
         end
       else
-        _require_bench_file(type, measure, skippy, file_path)
+        _require_bench_file(type, measure, skippy, file_path, *args)
       end
     end
 
-    def _require_bench_file(type, measure, skippy, file_path)
+    def _require_bench_file(type, measure, skippy, file_path, *args)
       if !measure && skippy
-        send("#{type}_without_timing", file_path)
+        send("#{type}_without_timing", file_path, *args)
       elsif RequireBench::INCLUDE_PATTERN.nil? || measure
-        RequireBench.send('consume_with_timing', type, file_path)
+        RequireBench.consume_with_timing(type, file_path, *args)
       else
-        send("#{type}_without_timing", file_path)
+        send("#{type}_without_timing", file_path, *args)
       end
     end
   end
