@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+# Development Tasks
+gem "rake", "~> 13.0"
+
+# Binding.pry - Irb replacement
+gem "pry", "~> 0.14"
+gem "pry-coolline", "~> 0.2", ">= 0.2.6"
+gem "pry-doc", "~> 1.4"
+gem "pry-docmore", "~> 0.1", ">= 0.1.1"
+gem "pry-macro", "~> 1.0", ">= 1.0.1"
+gem "pry-pretty-numeric", "~> 0.1", ">= 0.1.1"
+gem "pry-rescue", "~> 1.5", ">= 1.5.2"

@@ -1,0 +1,7 @@
+# CodeCov + GitHub setup: https://github.com/marketplace/actions/codecov
+gem "simplecov", "~> 0.22", require: false # Includes dependency on simplecov-html
+gem "simplecov-cobertura", "~> 2.1", require: false # Jenkins compatibility (XML)
+gem "simplecov-html", "~> 0.12", require: false # Human compatibility! (HTML)
+gem "simplecov-json", "~> 0.2", require: false # CodeClimate compatibility (JSON)
+gem "simplecov-lcov", "~> 0.8", require: false # GCOV compatibility
+gem "simplecov-rcov", "~> 0.3", ">= 0.3.3", require: false # Hudson compatibility

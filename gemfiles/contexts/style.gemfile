@@ -1,0 +1,17 @@
+# frozen_string_literal: true
+
+# NOTE: The gems below, along with this gem, i.e. require_bench, are packaged
+#       for distribution with single-line configuration by the rubocop-lts meta gem!
+gem "rubocop-gradual", "~> 0.3", require: false               # >= 2.6.0
+gem "rubocop-lts", "~> 8.1.1"
+gem "rubocop-md", "~> 1.2", require: false                    # >= 2.6.0
+gem "rubocop-packaging", "~> 0.5", ">= 0.5.2", require: false # >= 2.6.0
+gem "rubocop-performance", "~> 1.16", require: false
+gem "rubocop-rake", "~> 0.6", require: false                  # >= 2.5.0
+gem "rubocop-rspec", "~> 2.24", require: false                # >= 2.7.0
+gem "rubocop-shopify", "~> 2.14", require: false              # >= 2.7.0
+gem "rubocop-thread_safety", "~> 0.5", require: false         # >= 2.5.0
+gem "standard", ">= 1.31.1", "~> 1.31"
+gem "standard-custom", ">= 1.0.1", "~> 1.0"
+gem "standard-performance", "~> 1.2"
+gem "standard-rubocop-lts", ">= 1.0.9", "~> 1.0"
