@@ -1,3 +1,7 @@
+# RuboCop Gradual isn't able to parse something in this repo.
+# Not sure what exactly, and reported here:
+# https://github.com/skryukov/rubocop-gradual/issues/12
+# As a result this workflow must allow failure.
 name: Code Style
 
 on:
@@ -16,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        experimental: [false]
+        experimental: [true]
         rubygems:
           - latest
         bundler:
@@ -26,6 +30,7 @@ jobs:
         ruby:
           - "3.2"
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental || endsWith(matrix.ruby, 'head') }}
     env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
     steps:

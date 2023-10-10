@@ -30,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        experimental: [false]
+        experimental: [true]
         rubygems:
           - latest
         bundler:
