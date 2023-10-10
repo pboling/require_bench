@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require "digest/sha2"
-require "file"
 
 VERSION_REGEX = /\d+\.\d+\.\d+([-.].+)*/.freeze
 
