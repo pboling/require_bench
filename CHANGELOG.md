@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.4] 2023-10-09
 ### Added
+- Minimum Ruby version @ 2.2.0
 - Support tracking `load` in addition to `require`!
 - More tests
 - Better documentation
@@ -30,6 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - ENV['REQUIRE_BENCH_GROUP_PRECEDENCE']
   - Prefer to not group some pattern (i.e. some libraries)
     - ENV['REQUIRE_BENCH_NO_GROUP_PATTERN']
+### Changed
+- RequireBench::Version is now RequireBench::VERSION::Version (uses version_gem)
 ### Fixed
 - No RequireBench behavior unless ENV['REQUIRE_BENCH'] == 'true'
 - Use `casecmp?` instead of `==` to check ENV variable flags ^

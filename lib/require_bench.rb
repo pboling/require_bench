@@ -8,8 +8,11 @@ if REQUIRE_BENCH_ENABLED
   require 'timeout'
 end
 
+# external libs
+require "version_gem"
+
 # This Gem
-require 'require_bench/version'
+require_relative 'require_bench/version'
 
 # Namespace for this gem
 module RequireBench
@@ -179,4 +182,8 @@ if REQUIRE_BENCH_ENABLED
       end
     end
   end
+end
+
+RequireBench::Version.class_eval do
+  extend VersionGem::Basic
 end
