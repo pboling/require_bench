@@ -1,4 +1,5 @@
 require "bundler/gem_tasks"
+require "byebug" unless ENV['CI']
 
 require "yard-junk/rake"
 
@@ -9,7 +10,6 @@ require "yard"
 YARD::Rake::YardocTask.new(:yard)
 
 require "rspec/core/rake_task"
-require "byebug"
 require "rubocop/lts"
 
 Rubocop::Lts.install_tasks
