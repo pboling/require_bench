@@ -128,44 +128,24 @@ require "require_bench/tasks" # Near the top, just below require_relative 'confi
 
 #### Example
 
-When running from command line, you will see output as the Rails app boots.
+When running from command line, you will see output as the Rails app boots. In the case below it ignores all gem libraries, and only tracks Rails.
+The output at the top shows the config being used.
 ```bash
 $ REQUIRE_BENCH=true bundle exec rake require_bench:hello
-[RequireBench-r]  12.179703 /path/to/my_app/config/application
-[RequireBench-r]   0.001726 resque/tasks
-[RequireBench-r]   0.000917 resque/scheduler/tasks
-[RequireBench-r]   0.000011 rake
-[RequireBench-r]   0.000014 active_record
-[RequireBench-r]   0.008673 sprockets/rails/task
-[RequireBench-r]   0.000012 dynamoid
-[RequireBench-r]   0.000004 dynamoid/tasks/database
-[RequireBench-r]   0.000012 raven/integrations/tasks
-[RequireBench-r]   0.003107 rspec/core/rake_task
-[RequireBench-r]   0.000017 csv
-[RequireBench-r]   0.000012 resque/tasks
-[RequireBench-r]   0.000007 resque/scheduler/tasks
-[RequireBench-r]   0.064950 rails/tasks
-[RequireBench-r]   0.003305 rake/testtask
-[RequireBench-r]   0.001886 rubocop/rake_task
-[RequireBench-r]   0.000012 hubspot-ruby
-[RequireBench-r]   2.291259 /path/to/my_app/config/environment.rb
+[RequireBench] Using skip pattern: (?-mix:gems)
+[RequireBench] Using include pattern: (?-mix:my_app)
+[RequireBench] Using no group pattern: (?-mix:ext|config)
+🚥 [RequireBench-r] ☑️   0.005564 /Volumes/🐉🩸/src/apps/my_app/lib/middleware/omniauth_bypass.rb 🚥
+🚥 [RequireBench-r] ☑️   0.001099 /Volumes/🐉🩸/src/apps/my_app/lib/middleware/sidekiq/match_deployment_rules.rb 🚥
+🚥 [RequireBench-r] ☑️   0.001121 /Volumes/🐉🩸/src/apps/my_app/lib/middleware/sidekiq/request_store.rb 🚥
+🚥 [RequireBench-r] ☑️   0.000989 /Volumes/🐉🩸/src/apps/my_app/lib/middleware/sidekiq/clear_active_record_connections.rb 🚥
+🚥 [RequireBench-r] ☑️   0.006890 /Volumes/🐉🩸/src/apps/my_app/lib/middleware/sidekiq/worker_killer.rb 🚥
+🚥 [RequireBench-r] ☑️   0.001990 /Volumes/🐉🩸/src/apps/my_app/lib/parsers/pku_parser.rb 🚥
 
 [RequireBench] Slowest Loads by Library, in order
- 1.  11.914224 /path/to/my_app/config/application
- 2.   2.153282 /path/to/my_app/config/environment.rb
- 3.   0.061008 rails
- 4.   0.010827 sprockets
- 5.   0.003179 rspec
- 6.   0.003144 rake
- 7.   0.003127 resque
- 8.   0.001543 rubocop
- 9.   0.000021 dynamoid
-10.   0.000016 csv
-11.   0.000016 active_record
-12.   0.000010 raven
-13.   0.000005 hubspot-ruby
+ 1.   0.017653 my_app
 ==========
- 14.150402 TOTAL
+  0.017653 TOTAL
 ```
 
 ### Output Options
