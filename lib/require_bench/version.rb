@@ -2,6 +2,6 @@
 
 module RequireBench
   module Version
-    VERSION = '1.0.4'
+    VERSION = "1.0.4"
   end
 end

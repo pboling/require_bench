@@ -30,7 +30,7 @@ This is an extraction of a debugging tool that I have copy/pasted into many proj
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'require_bench'
+gem "require_bench"
 ```
 
 And then execute:
@@ -46,7 +46,7 @@ Or install it yourself as:
 Require the library where it will be loaded prior to any other requires you want to benchmark.
 
 ```ruby
-require 'require_bench'
+require "require_bench"
 ```
 
 By default this gem does **nothing**, hacks **nothing**, and has **zero** effects.
@@ -56,7 +56,7 @@ By default this gem does **nothing**, hacks **nothing**, and has **zero** effect
 Add an environment variable, however you normally do such things, so that in Ruby:
 
 ```ruby
-ENV['REQUIRE_BENCH'] == 'true'
+ENV["REQUIRE_BENCH"] == "true"
 ```
 
 Any value other than `'true'` means RequireBench is still turned off.
@@ -68,8 +68,8 @@ Any value other than `'true'` means RequireBench is still turned off.
 Require in Rakefile:
 
 ```ruby
-  require 'bundler/setup'
-  require 'require_bench/tasks' # Near the top, just below require 'bundler/setup'!
+require "bundler/setup"
+require "require_bench/tasks" # Near the top, just below require 'bundler/setup'!
 ```
 
 #### For Rails
@@ -77,8 +77,8 @@ Require in Rakefile:
 Require in Rakefile:
 
 ```ruby
-  require_relative 'config/application'
-  require 'require_bench/tasks' # Near the top, just below require_relative 'config/application'!
+require_relative "config/application"
+require "require_bench/tasks" # Near the top, just below require_relative 'config/application'!
 ```
 
 #### Output
@@ -136,9 +136,9 @@ export REQUIRE_BENCH_SKIP_PATTERN=activesupport,rspec
   * a string, to be split by pipe (`|`), then joined by pipe (`|`) with `Regexp.union`
 
 ```ruby
-ENV['REQUIRE_BENCH_SKIP_PATTERN'] = 'activesupport,rspec'
+ENV["REQUIRE_BENCH_SKIP_PATTERN"] = "activesupport,rspec"
 # or
-ENV['REQUIRE_BENCH_SKIP_PATTERN'] = 'activesupport|rspec'
+ENV["REQUIRE_BENCH_SKIP_PATTERN"] = "activesupport|rspec"
 ```
 
 Any file being required that matches the pattern will use the standard, rather than the benchmarked, require.
@@ -176,14 +176,14 @@ dependency on this gem using the [Pessimistic Version Constraint][pvc] with two 
 For example:
 
 ```ruby
-spec.add_dependency 'require_bench', '~> 0.0'
+spec.add_dependency("require_bench", "~> 0.0")
 ```
 
 ## License
 
 * Copyright (c) 2018-2020, 2023 [Peter H. Boling][peterboling] of [Rails Bling][railsbling]
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT) 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 [license]: LICENSE
 [semver]: http://semver.org/

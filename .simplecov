@@ -48,7 +48,7 @@ if RUN_COVERAGE
       require "simplecov-cobertura"
       command_name "#{ENV.fetch(
         "GITHUB_WORKFLOW",
-        nil
+        nil,
       )} Job #{ENV.fetch("GITHUB_RUN_ID", nil)}:#{ENV.fetch("GITHUB_RUN_NUMBER", nil)}"
 
       SimpleCov::Formatter::LcovFormatter.config do |c|
