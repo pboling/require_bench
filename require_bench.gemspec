@@ -50,16 +50,22 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "version_gem", ">= 1.1.3", "< 4"                # >= 2.2.0
+  spec.add_dependency("version_gem", ">= 1.1.3", "< 4")                # >= 2.2.0
 
-  spec.add_development_dependency 'byebug', '~> 11'
-  spec.add_development_dependency 'colorize', '~> 1.1'
-  spec.add_development_dependency 'lucky_case', '~> 1.1'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec', '~> 3.12'
-  spec.add_development_dependency 'rspec-block_is_expected', '~> 1.0'
-  spec.add_development_dependency 'rspec-stubbed_env', '~> 1.0', '>= 1.0.1'
-  spec.add_development_dependency 'rubocop-lts', '~> 8.1', '>= 8.1.1' # Lint & Style Support for Ruby 2.2+
-  spec.add_development_dependency 'rubocop-packaging', '~> 0.5', '>= 0.5.2'
-  spec.add_development_dependency 'silent_stream', '~> 1.0', '>= 1.0.3'
+  # Documentation
+  spec.add_development_dependency("rbs", "~> 3.1")
+  spec.add_development_dependency("redcarpet", "~> 3.6")
+  spec.add_development_dependency("yard", "~> 0.9", ">= 0.9.34")
+  spec.add_development_dependency("yard-junk", "~> 0.0")
+
+  spec.add_development_dependency("byebug", "~> 11")
+  spec.add_development_dependency("colorize", "~> 1.1")
+  spec.add_development_dependency("lucky_case", "~> 1.1")
+  spec.add_development_dependency("rake", "~> 13.0")
+  spec.add_development_dependency("rspec", "~> 3.12")
+  spec.add_development_dependency("rspec-block_is_expected", "~> 1.0")
+  spec.add_development_dependency("rspec-stubbed_env", "~> 1.0", ">= 1.0.1")
+  spec.add_development_dependency("rubocop-lts", "~> 8.1", ">= 8.1.1") # Lint & Style Support for Ruby 2.2+
+  spec.add_development_dependency("rubocop-packaging", "~> 0.5", ">= 0.5.2")
+  spec.add_development_dependency("silent_stream", "~> 1.0", ">= 1.0.3")
 end
