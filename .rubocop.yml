@@ -1,2 +1,2 @@
 inherit_gem:
-  rubocop-lts: rubocop-lts.yml
+  rubocop-lts: config/rubygem_rspec.yml

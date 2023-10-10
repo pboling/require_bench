@@ -59,7 +59,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.12'
   spec.add_development_dependency 'rspec-block_is_expected', '~> 1.0'
   spec.add_development_dependency 'rspec-stubbed_env', '~> 1.0', '>= 1.0.1'
-  spec.add_development_dependency 'rubocop-lts', '~> 8.1', '>= 8.1.1' # >= 2.2.0
+  spec.add_development_dependency 'rubocop-lts', '~> 8.1', '>= 8.1.1' # Lint & Style Support for Ruby 2.2+
   spec.add_development_dependency 'rubocop-packaging', '~> 0.5', '>= 0.5.2'
   spec.add_development_dependency 'silent_stream', '~> 1.0', '>= 1.0.3'
 end
