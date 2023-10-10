@@ -1,8 +1,21 @@
-# frozen_string_literal: true
+require "bundler/gem_tasks"
 
-require 'bundler/gem_tasks'
-require 'rspec/core/rake_task'
+require "yard-junk/rake"
+
+YardJunk::Rake.define_task
+
+require "yard"
+
+YARD::Rake::YardocTask.new(:yard)
+
+require "rspec/core/rake_task"
+require "byebug"
+require "rubocop/lts"
+
+Rubocop::Lts.install_tasks
 
 RSpec::Core::RakeTask.new(:spec)
+desc "alias test task to spec"
+task test: :spec
 
-task default: :spec
+task default: [:yard, :rubocop_gradual, :spec]
