@@ -1,2 +1,2 @@
-Layout/DotPosition:
-  EnforcedStyle: trailing
+inherit_gem:
+  rubocop-lts: rubocop-lts.yml
