@@ -188,7 +188,6 @@ PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
-  byebug (~> 11.0)
   colorize (~> 1.1)
   debug (~> 1.8)
   lucky_case (~> 1.1)
