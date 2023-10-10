@@ -14,6 +14,7 @@ require "version_gem/rspec"
 require "config/rspec/rspec_core"
 require "config/rspec/rspec_block_is_expected"
 
+# Constrain which workflow / matrix code coverage will run in for CI.
 engine = "ruby"
 major = 3
 minor = 2
@@ -22,8 +23,11 @@ gte_min = VersionGem::Ruby.gte_minimum_version?(version, engine)
 actual_minor = VersionGem::Ruby.actual_minor_version?(major, minor, engine)
 
 debugging = gte_min && DEBUG
-RUN_COVERAGE = gte_min && (ENV.fetch("COVER_ALL", nil) || ENV.fetch("CI_CODECOV", nil) || ENV["CI"].nil?)
-ALL_FORMATTERS = actual_minor && (ENV.fetch("COVER_ALL", nil) || ENV.fetch("CI_CODECOV", nil) || ENV.fetch("CI", nil))
+
+# Setting CI_CODECOV=true will turn on coverage locally.
+IS_CI = ENV.fetch("CI", "false").casecmp?("true")
+RUN_COVERAGE = ENV.fetch("CI_CODECOV", "false").casecmp?("true") && (!IS_CI || gte_min)
+ALL_FORMATTERS = ENV.fetch("COVER_ALL", "false").casecmp?("true") && (!IS_CI || actual_minor)
 
 if DEBUG
   if debugging

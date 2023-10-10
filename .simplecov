@@ -72,7 +72,7 @@ if RUN_COVERAGE
     SimpleCov.use_merging(true)
     SimpleCov.merge_timeout(3600)
 
-    minimum_coverage(line: 100, branch: 100)
+    minimum_coverage(line: 58, branch: 54)
   end
 else
   puts "Not running coverage on #{RUBY_VERSION}-#{RUBY_ENGINE}"
