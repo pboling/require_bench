@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 ### Removed
 
-## [1.0.4] 2023-10-09
+## [1.0.4] 2023-10-10
 ### Added
 - Minimum Ruby version @ 2.2.0
 - Support tracking `load` in addition to `require`!

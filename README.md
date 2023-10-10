@@ -2,13 +2,17 @@
 
 Have a Ruby project that has stopped loading, and you aren't sure where the issue is?
 
-Knowing the last file that was successfully "required" by Ruby can be helpful in diagnosing the issue.  This gem will help you find that last required file.  It can also help you see where expensive (slow) processing is occurring, by adding `Benchmark.realtime` to every require, and printing the result for every file.
+Knowing the last file that was successfully _required_, or _loaded_ by Ruby can be helpful in diagnosing the issue.  This gem will help you find that last required file.  It can also help you see where expensive (slow) processing is occurring, by adding `Benchmark.realtime` to every `require` / `load`, and printing the result for every file.
+
+As of version 1.0.4 it can also add timeout, rescue, and additional logging to both `require` and `load`.
 
 This is an extraction of a debugging tool that I have copy/pasted into many projects over the years, and it is now time to set it free.
 
+*Note*: This gem will make code load slower than normal, but may end up saving you time by showing you where a problem is.
+
 *Warning*: This gem is for debugging problems.  It uses a global **$** variable, which is sad practice.  It uses it as a safety semaphore, so I consider it justified.  If you can think of a better way to implement the safety semaphore, let me know!
 
-*Caveat*: This gem has no effects unless a particular environment variable is set.  It does nothing at all unless it is 'invoked' by detection of the environment variable (`ENV['REQUIRE_BENCH'] == 'true'`).  The *Warning* above is mitigated by the gem not having any of its code activated under normal circumstances.
+*Caveat*: This gem has no effects unless a particular environment variable is set.  It does nothing at all unless it is 'invoked' by detection of the environment variable (`ENV['REQUIRE_BENCH'] == 'true'`).  The *Warning* above is mitigated by the gem not having any of its code, other than the namespace and version, activated under normal circumstances.
 
 | Project                | RequireBench                                                                                                                                                                                                                                         |
 |------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -81,29 +85,29 @@ require_relative "config/application"
 require "require_bench/tasks" # Near the top, just below require_relative 'config/application'!
 ```
 
-#### Output
+#### Example
 
 When running from command line, you will see output as the Rails app boots.
 ```bash
 $ REQUIRE_BENCH=true bundle exec rake require_bench:hello
-[RequireBench]  12.179703 /path/to/my_app/config/application
-[RequireBench]   0.001726 resque/tasks
-[RequireBench]   0.000917 resque/scheduler/tasks
-[RequireBench]   0.000011 rake
-[RequireBench]   0.000014 active_record
-[RequireBench]   0.008673 sprockets/rails/task
-[RequireBench]   0.000012 dynamoid
-[RequireBench]   0.000004 dynamoid/tasks/database
-[RequireBench]   0.000012 raven/integrations/tasks
-[RequireBench]   0.003107 rspec/core/rake_task
-[RequireBench]   0.000017 csv
-[RequireBench]   0.000012 resque/tasks
-[RequireBench]   0.000007 resque/scheduler/tasks
-[RequireBench]   0.064950 rails/tasks
-[RequireBench]   0.003305 rake/testtask
-[RequireBench]   0.001886 rubocop/rake_task
-[RequireBench]   0.000012 hubspot-ruby
-[RequireBench]   2.291259 /path/to/my_app/config/environment.rb
+[RequireBench-r]  12.179703 /path/to/my_app/config/application
+[RequireBench-r]   0.001726 resque/tasks
+[RequireBench-r]   0.000917 resque/scheduler/tasks
+[RequireBench-r]   0.000011 rake
+[RequireBench-r]   0.000014 active_record
+[RequireBench-r]   0.008673 sprockets/rails/task
+[RequireBench-r]   0.000012 dynamoid
+[RequireBench-r]   0.000004 dynamoid/tasks/database
+[RequireBench-r]   0.000012 raven/integrations/tasks
+[RequireBench-r]   0.003107 rspec/core/rake_task
+[RequireBench-r]   0.000017 csv
+[RequireBench-r]   0.000012 resque/tasks
+[RequireBench-r]   0.000007 resque/scheduler/tasks
+[RequireBench-r]   0.064950 rails/tasks
+[RequireBench-r]   0.003305 rake/testtask
+[RequireBench-r]   0.001886 rubocop/rake_task
+[RequireBench-r]   0.000012 hubspot-ruby
+[RequireBench-r]   2.291259 /path/to/my_app/config/environment.rb
 
 [RequireBench] Slowest Loads by Library, in order
  1.  11.914224 /path/to/my_app/config/application
@@ -146,6 +150,25 @@ Any file being required that matches the pattern will use the standard, rather t
 #### Fully qualified paths
 
 Fully qualified paths, or any portion thereof, are fine, because the strings are always Regexp escaped.
+
+### Other ENV control variables
+
+- wrap/log load in addition to require
+    - `ENV['REQUIRE_BENCH_TRACKED_METHODS']`
+- rescue errors
+    - `ENV['REQUIRE_BENCH_RESCUED_CLASSES']`
+- log start
+    - `ENV['REQUIRE_BENCH_LOG_START']`
+- load/require timeout
+    - `ENV['REQUIRE_BENCH_TIMEOUT']`
+- A pattern for paths that should be included/tracked
+    - `ENV['REQUIRE_BENCH_INCLUDE_PATTERN']`
+- Should grouping be by basename or by path?
+    - `ENV['REQUIRE_BENCH_GROUP_PRECEDENCE']`
+- Prefer to not group some pattern (i.e. some libraries)
+    - `ENV['REQUIRE_BENCH_NO_GROUP_PATTERN']`
+
+If you'd like to help document any of these further, PRs are appreciated!
 
 ## Development
 
