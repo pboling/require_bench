@@ -14,20 +14,61 @@ This is an extraction of a debugging tool that I have copy/pasted into many proj
 
 *Caveat*: This gem has no effects unless a particular environment variable is set.  It does nothing at all unless it is 'invoked' by detection of the environment variable (`ENV['REQUIRE_BENCH'] == 'true'`).  The *Warning* above is mitigated by the gem not having any of its code, other than the namespace and version, activated under normal circumstances.
 
-| Project                | RequireBench                                                                                                                                                                                                                                         |
-|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| gem name               | [require_bench](https://rubygems.org/gems/require_bench)                                                                                                                                                                                             |
-| license                | [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)                                                                                                                                           |
-| download rank          | [![Downloads Today](https://img.shields.io/gem/rd/require_bench.svg)](https://github.com/pboling/require_bench)                                                                                                                                      |
-| version                | [![Version](https://img.shields.io/gem/v/require_bench.svg)](https://rubygems.org/gems/require_bench)                                                                                                                                                |
-| dependencies           | [![Depfu](https://badges.depfu.com/badges/247bffc753b0cd49d3c08ce03b5c251c/count.svg)](https://depfu.com/github/pboling/require_bench?project_id=5824)                                                                                               |
-| continuous integration | [![Build Status](https://travis-ci.org/pboling/require_bench.svg?branch=master)](https://travis-ci.org/pboling/require_bench)                                                                                                                        |
-| test coverage          | [![Test Coverage](https://api.codeclimate.com/v1/badges/18523205c207a2b53045/test_coverage)](https://codeclimate.com/github/pboling/require_bench/test_coverage)                                                                                     |
-| maintainability        | [![Maintainability](https://api.codeclimate.com/v1/badges/18523205c207a2b53045/maintainability)](https://codeclimate.com/github/pboling/require_bench/maintainability)                                                                               |
-| code triage            | [![Open Source Helpers](https://www.codetriage.com/pboling/require_bench/badges/users.svg)](https://www.codetriage.com/pboling/require_bench)                                                                                                        |
-| homepage               | [on Github.com][homepage], [on Railsbling.com][blogpage]                                                                                                                                                                                             |
-| documentation          | [on RDoc.info][documentation]                                                                                                                                                                                                                        |
-| Spread ~♡ⓛⓞⓥⓔ♡~        | [🌏](https://about.me/peter.boling), [👼](https://angel.co/peter-boling), [:shipit:](https://coderwall.com/Peter%20Boling), [![Tweet Peter](https://img.shields.io/twitter/follow/galtzo.svg?style=social&label=Follow)](https://twitter.com/galtzo) |
+| Project                | RequireBench                                                                                                                                                                                                                                                                                                                      |
+|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| gem name               | [require_bench](https://rubygems.org/gems/require_bench)                                                                                                                                                                                                                                                                          |
+| license                | [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)                                                                                                                                                                                                                        |
+| download rank          | [![Downloads Today](https://img.shields.io/gem/rd/require_bench.svg)](https://github.com/pboling/require_bench)                                                                                                                                                                                                                   |
+| version                | [![Version](https://img.shields.io/gem/v/require_bench.svg)](https://rubygems.org/gems/require_bench)                                                                                                                                                                                                                             |
+| dependencies           | [![Depfu](https://badges.depfu.com/badges/247bffc753b0cd49d3c08ce03b5c251c/count.svg)](https://depfu.com/github/pboling/require_bench?project_id=5824)                                                                                                                                                                            |
+| continuous integration | [![Current][🚎ini-cwfi]][🚎ini-cwf] [![Heads][🖐ini-hwfi]][🖐ini-hwf] [![Style][🧮ini-swfi]][🧮ini-swf]                                                                                                                                                                                                                           |
+| test coverage          | [![Coverage][🚎ini-covwfi]][🚎ini-covwf] [![Test Coverage](https://api.codeclimate.com/v1/badges/18523205c207a2b53045/test_coverage)](https://codeclimate.com/github/pboling/require_bench/test_coverage)                                                                                                                         |
+| maintainability        | [![Maintainability](https://api.codeclimate.com/v1/badges/18523205c207a2b53045/maintainability)](https://codeclimate.com/github/pboling/require_bench/maintainability)                                                                                                                                                            |
+| code triage            | [![Open Source Helpers](https://www.codetriage.com/pboling/require_bench/badges/users.svg)](https://www.codetriage.com/pboling/require_bench)                                                                                                                                                                                     |
+| homepage               | [on Github.com][homepage], [on Railsbling.com][blogpage]                                                                                                                                                                                                                                                                          |
+| documentation          | [on RDoc.info][documentation]                                                                                                                                                                                                                                                                                                     |
+| Support                | [Chat on Element / Matrix / Gitter][🏘chat]                                                                                                                                                                                                                                                                                       |
+| Spread ~♡ⓛⓞⓥⓔ♡~        | [🌏](https://about.me/peter.boling), [👼](https://angel.co/peter-boling), [![Liberapay Patrons][⛳liberapay-img]][⛳liberapay] [![Follow Me on LinkedIn][🖇linkedin-img]][🖇linkedin] [![Find Me on WellFound:][✌️wellfound-img]][✌️wellfound] [![My Blog][🚎blog-img]][🚎blog] [![Follow Me on Twitter][🐦twitter-img]][🐦twitter] |
+
+[![Support my refugee and open source work @ ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O5O86SNP4)
+
+[⛳liberapay-img]: https://img.shields.io/liberapay/patrons/pboling.svg?logo=liberapay
+[⛳liberapay]: https://liberapay.com/pboling/donate
+[🖇linkedin]: http://www.linkedin.com/in/peterboling
+[🖇linkedin-img]: https://img.shields.io/badge/PeterBoling-blue?style=plastic&logo=linkedin
+[✌️wellfound]: https://angel.co/u/peter-boling
+[✌️wellfound-img]: https://img.shields.io/badge/peter--boling-orange?style=plastic&logo=angellist
+[🐦twitter]: http://twitter.com/intent/user?screen_name=galtzo
+[🐦twitter-img]: https://img.shields.io/twitter/follow/galtzo.svg?style=social&label=Follow%20@galtzo
+[🚎blog]: http://www.railsbling.com/tags/oauth2/
+[🚎blog-img]: https://img.shields.io/badge/blog-railsbling-brightgreen.svg?style=flat
+[my🧪lab]: https://gitlab.com/pboling
+[my🧊berg]: https://codeberg.org/pboling
+[my🛖hut]: https://sr.ht/~galtzo/
+
+<!-- columnar badge #s for Project Health table:
+⛳️
+🖇
+🏘
+🚎
+🖐
+🧮
+📗
+🚀
+💄
+👽
+-->
+
+[🚎ini-cwf]: https://github.com/pboling/require_bench/actions/workflows/current.yml
+[🚎ini-cwfi]: https://github.com/pboling/require_bench/actions/workflows/current.yml/badge.svg
+[🖐ini-hwf]: https://github.com/pboling/require_bench/actions/workflows/heads.yml
+[🖐ini-hwfi]: https://github.com/pboling/require_bench/actions/workflows/heads.yml/badge.svg
+[🧮ini-swf]: https://github.com/pboling/require_bench/actions/workflows/style.yml
+[🧮ini-swfi]: https://github.com/pboling/require_bench/actions/workflows/style.yml/badge.svg
+[📗ini-covwf]: https://github.com/pboling/require_bench/actions/workflows/coverage.yml
+[📗ini-covwfi]: https://github.com/pboling/require_bench/actions/workflows/coverage.yml/badge.svg
+
+[🏘chat]: https://matrix.to/#/#pboling_require_bench:gitter.im
 
 ## Installation
 
