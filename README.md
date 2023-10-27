@@ -123,7 +123,7 @@ Require in Rakefile:
 
 ```ruby
 require_relative "config/application"
-require "require_bench/tasks" # Near the top, just below require_relative 'config/application'!
+require "require_bench/tasks" if ENV["REQUIRE_BENCH"] == "true" # Near the top, just below require_relative 'config/application'!
 ```
 
 #### Example
